@@ -1,6 +1,7 @@
 package lab_1.a;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,16 +34,25 @@ public class MainWindow {
         window.setVisible(true);
     }
 
-    private static synchronized void addToSliderValue(int value) {
-        logger.log(Level.INFO, String.format("%s %s", Thread.currentThread().getName(), slider.getValue()));
-        slider.setValue(slider.getValue() + value);
-        logger.log(Level.INFO, String.format("%s %s", Thread.currentThread().getName(), slider.getValue()));
+    private static void addToSliderValue(int value) {
+        synchronized (slider) {
+            logger.log(Level.INFO, String.format("%s %s : %d", Thread.currentThread().getName(), slider.getValue(), Thread.currentThread().getPriority()));
+            if(value < 0) {
+                slider.setValue(Math.max(10, slider.getValue() + value));
+            } else {
+                slider.setValue(Math.min(90, slider.getValue() + value));
+            }
+            logger.log(Level.INFO, String.format("%s %s : %d", Thread.currentThread().getName(), slider.getValue(), Thread.currentThread().getPriority()));
+        }
     }
 
     private static JPanel getPanel() {
         JPanel panel = new JPanel();
+
         text = new JTextField(5);
         text.setHorizontalAlignment(SwingConstants.CENTER);
+        text.setEnabled(false);
+        text.setDisabledTextColor(Color.BLACK);
         slider = new JSlider();
         startBtn = new JButton(START_LABEL);
 
@@ -92,7 +102,7 @@ public class MainWindow {
                 boolean isInterrupted = false;
                 while (!isInterrupted) {
                     try {
-                        Thread.sleep(0, 5);
+                        Thread.sleep(0, 1);
                         addToSliderValue(1);
                     } catch (InterruptedException ex) {
                         isInterrupted = true;
@@ -105,7 +115,7 @@ public class MainWindow {
                 boolean isInterrupted = false;
                 while (!isInterrupted) {
                     try {
-                        Thread.sleep(0, 5);
+                        Thread.sleep(0, 1);
                         addToSliderValue(-1);
                     } catch (InterruptedException ex) {
                         isInterrupted = true;
