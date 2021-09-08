@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 public class MainWindow {
     private static final Logger logger = Logger.getLogger(MainWindow.class.getName());
-    private static  final String START_LABEL = "Start";
-    private static  final String FINISH_LABEL = "Finish";
+    private static final String START_LABEL = "Start";
+    private static final String FINISH_LABEL = "Finish";
 
     static Thread thread1;
     static Thread thread2;
@@ -53,7 +53,10 @@ public class MainWindow {
         text.setHorizontalAlignment(SwingConstants.CENTER);
         text.setEnabled(false);
         text.setDisabledTextColor(Color.BLACK);
+
         slider = new JSlider();
+        slider.setEnabled(false);
+
         startBtn = new JButton(START_LABEL);
 
         plusBtn1 = new JButton("+");
@@ -103,7 +106,7 @@ public class MainWindow {
                 while (!isInterrupted) {
                     try {
                         Thread.sleep(0, 1);
-                        addToSliderValue(1);
+                        addToSliderValue(-1);
                     } catch (InterruptedException ex) {
                         isInterrupted = true;
                         Thread.currentThread().interrupt();
@@ -116,7 +119,7 @@ public class MainWindow {
                 while (!isInterrupted) {
                     try {
                         Thread.sleep(0, 1);
-                        addToSliderValue(-1);
+                        addToSliderValue(1);
                     } catch (InterruptedException ex) {
                         isInterrupted = true;
                         Thread.currentThread().interrupt();
