@@ -1,4 +1,4 @@
-package lab_1.a;
+package dp.lab1.a;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,12 @@ public class MainWindow {
     static JButton minusBtn2;
     static JButton startBtn;
 
-    static JSlider slider;
+    static final JSlider slider;
+
+    static {
+        slider = new JSlider();
+    }
+
     static JTextField text;
 
     public static void main(String[] args) {
@@ -36,13 +41,25 @@ public class MainWindow {
 
     private static void addToSliderValue(int value) {
         synchronized (slider) {
-            logger.log(Level.INFO, String.format("%s %s : %d", Thread.currentThread().getName(), slider.getValue(), Thread.currentThread().getPriority()));
-            if(value < 0) {
+            String message = String.format("%s %s : %d",
+                    Thread.currentThread().getName(),
+                    slider.getValue(),
+                    Thread.currentThread().getPriority());
+
+            logger.log(Level.INFO, message);
+
+            if (value < 0) {
                 slider.setValue(Math.max(10, slider.getValue() + value));
             } else {
                 slider.setValue(Math.min(90, slider.getValue() + value));
             }
-            logger.log(Level.INFO, String.format("%s %s : %d", Thread.currentThread().getName(), slider.getValue(), Thread.currentThread().getPriority()));
+
+            message = String.format("%s %s : %d",
+                    Thread.currentThread().getName(),
+                    slider.getValue(),
+                    Thread.currentThread().getPriority());
+
+            logger.log(Level.INFO, message);
         }
     }
 
@@ -54,7 +71,6 @@ public class MainWindow {
         text.setEnabled(false);
         text.setDisabledTextColor(Color.BLACK);
 
-        slider = new JSlider();
         slider.setEnabled(false);
 
         startBtn = new JButton(START_LABEL);
@@ -129,6 +145,10 @@ public class MainWindow {
 
             thread1.setPriority(Thread.NORM_PRIORITY);
             thread2.setPriority(Thread.NORM_PRIORITY);
+
+            thread1.setDaemon(true);
+            thread2.setDaemon(true);
+
             thread1.start();
             thread2.start();
 

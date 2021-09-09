@@ -1,4 +1,4 @@
-package lab_1.b;
+package dp.lab1.b;
 
 import javax.swing.*;
 
@@ -19,7 +19,7 @@ public class SemaphoreThread implements Runnable {
 
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                Thread.sleep(0, 0);
+                Thread.sleep(0, 1);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

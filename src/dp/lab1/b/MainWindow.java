@@ -1,4 +1,4 @@
-package lab_1.b;
+package dp.lab1.b;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class MainWindow {
     static JButton startBtn2;
     static JButton finishBtn2;
 
-    static JSlider slider;
+    static final JSlider slider = new JSlider();
     static JTextField text;
 
     static int semaphore = 0;
@@ -36,7 +36,6 @@ public class MainWindow {
         text.setEnabled(false);
         text.setDisabledTextColor(Color.BLACK);
 
-        slider = new JSlider();
         slider.setEnabled(false);
 
         startBtn1 = new JButton("1. Start");
@@ -57,53 +56,39 @@ public class MainWindow {
     }
 
     private static void assignThreadBtns() {
-        startBtn1.addActionListener(e -> {
+        startBtn1.addActionListener(e -> thread1 = startThreadSynchronize(thread1, 10, Thread.MIN_PRIORITY));
+        finishBtn1.addActionListener(e -> finishThreadSynchronize(thread1));
+
+        startBtn2.addActionListener(e -> thread2 = startThreadSynchronize(thread2, 90, Thread.MAX_PRIORITY));
+        finishBtn2.addActionListener(e -> finishThreadSynchronize(thread2));
+    }
+
+    private static Thread startThreadSynchronize(Thread thread, int value, int priority) {
+        synchronized (slider) {
             if (semaphore == 0) {
-                thread1 = new Thread(new SemaphoreThread(10, Thread.MIN_PRIORITY, slider));
-                thread1.start();
+                thread = new Thread(new SemaphoreThread(value, priority, slider));
+                thread.start();
                 semaphore = 1;
             } else {
-                if (thread1 != null && thread1.isAlive()) {
-                    return;
+                if (thread != null && thread.isAlive()) {
+                    return thread;
                 }
-                text.setText("Thread 2 is working");
+                text.setText("Another thread is working");
             }
-        });
+            return thread;
+        }
+    }
 
-        finishBtn1.addActionListener(e -> {
-            if (semaphore == 1 && thread1 != null && thread1.isAlive()) {
+    private static void finishThreadSynchronize(Thread thread) {
+        synchronized (slider) {
+            if (semaphore == 1 && thread != null && thread.isAlive()) {
                 text.setText("");
-                thread1.interrupt();
+                thread.interrupt();
 
                 semaphore = 0;
             } else {
                 text.setText("Stopping wrong thread");
             }
-        });
-
-
-        startBtn2.addActionListener(e -> {
-            if (semaphore == 0) {
-                thread2 = new Thread(new SemaphoreThread(90, Thread.MAX_PRIORITY, slider));
-                thread2.start();
-                semaphore = 1;
-            } else {
-                if (thread2 != null && thread2.isAlive()) {
-                    return;
-                }
-                text.setText("Thread 1 is working");
-            }
-        });
-
-        finishBtn2.addActionListener(e -> {
-            if (semaphore == 1 && thread2 != null && thread2.isAlive()) {
-                text.setText("");
-                thread2.interrupt();
-
-                semaphore = 0;
-            } else {
-                text.setText("Stopping wrong thread");
-            }
-        });
+        }
     }
 }
