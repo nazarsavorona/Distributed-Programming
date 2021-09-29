@@ -40,12 +40,16 @@ public class Beehive {
 
     public boolean[] getBeeTask() {
         synchronized (sync) {
-            if (field.length > lastGivenRow + 1) {
+            if (hasTask()) {
                 return field[++lastGivenRow];
             }
 
-            return new boolean[0];
+            throw new IllegalArgumentException();
         }
+    }
+
+    public boolean hasTask() {
+        return field.length < lastGivenRow;
     }
 
     public void setWinnieFound() {
