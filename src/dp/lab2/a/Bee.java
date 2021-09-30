@@ -11,9 +11,13 @@ public class Bee implements Runnable {
     public void run() {
         while (true) {
             synchronized (hive) {
-                boolean[] currentRow = hive.getBeeTask();
+                boolean[] currentRow = null;
 
-                if (currentRow.length == 0 || hive.checkWinnieFoundStatus()) {
+                if (hive.hasTask()) {
+                    currentRow = hive.getBeeTask();
+                }
+
+                if (currentRow == null || hive.checkWinnieFoundStatus()) {
                     break;
                 }
 
