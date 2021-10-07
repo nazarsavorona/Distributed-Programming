@@ -54,6 +54,6 @@ func (graph *SafeGraph) getPathCost(firstCity, secondCity string) {
 
 func (graph *SafeGraph) printGraphviz(name string) {
 	graph.mutex.Lock()
-	println(graph.container.getGraphvizInfo(name))
+	fmt.Println(graph.container.getGraphvizInfo(name))
 	graph.mutex.Unlock()
 }

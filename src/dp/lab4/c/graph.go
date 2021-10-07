@@ -123,13 +123,25 @@ func (graph *Graph) deleteEdge(firstCity, secondCity string) {
 	fromVertex := graph.getVertex(firstCity)
 	toVertex := graph.getVertex(secondCity)
 
-	if fromVertex == nil || toVertex == nil {
-		fmt.Println("Incorrect city name occurred")
+	if cityExistanceHandle(firstCity, secondCity, fromVertex, toVertex) {
 		return
 	}
 
 	fromVertex.deleteRoute(secondCity)
 	toVertex.deleteRoute(firstCity)
+}
+
+func cityExistanceHandle(firstCity string, secondCity string, fromVertex *Vertex, toVertex *Vertex) bool {
+	errorString := "Incorrect or not existing city name:"
+	if fromVertex == nil {
+		fmt.Printf("%s %s\n", errorString, firstCity)
+		return true
+	}
+	if toVertex == nil {
+		fmt.Printf("%s %s\n", errorString, secondCity)
+		return true
+	}
+	return false
 }
 
 func (graph *Graph) addEdge(from, to string, price int) {
@@ -141,8 +153,7 @@ func (graph *Graph) addEdge(from, to string, price int) {
 	fromVertex := graph.getVertex(from)
 	toVertex := graph.getVertex(to)
 
-	if fromVertex == nil || toVertex == nil {
-		fmt.Println("Incorrect city name occurred")
+	if cityExistanceHandle(from, to, fromVertex, toVertex) {
 		return
 	}
 
@@ -155,7 +166,7 @@ func (graph *Graph) addEdge(from, to string, price int) {
 
 func (graph *Graph) changePrice(firstCity, secondCity string, newPrice int) {
 	if !graph.exists(firstCity) || !graph.exists(secondCity) {
-		fmt.Printf("There is no route between \"%s \" and \"%s \"\n", firstCity, secondCity)
+		fmt.Printf("There is no route between \"%s\" and \"%s\"\n", firstCity, secondCity)
 		return
 	}
 
