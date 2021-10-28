@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"sync"
-	"time"
 )
 
-func ititialize() {
+func main() {
 	var waitGroup sync.WaitGroup
 
 	threads := make([]Thread, 3)
@@ -37,7 +35,7 @@ func ititialize() {
 
 		for i := 0; i < 3; i++ {
 			sums[i] = threads[i].getCurrentSum()
-			//threads[i].print()
+			// threads[i].print()
 		}
 
 		if sums[0] == sums[1] && sums[1] == sums[2] {
@@ -49,19 +47,4 @@ func ititialize() {
 			return
 		}
 	}
-}
-
-func main() {
-	//var waitGroup sync.WaitGroup
-	//
-	//waitGroup.Add(1)
-	//go func() {
-	//	defer waitGroup.Done()
-	//	ititialize()
-	//}()
-	//
-	//waitGroup.Wait()
-
-	rand.Seed(time.Now().UnixNano())
-	ititialize()
 }
