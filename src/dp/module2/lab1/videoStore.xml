@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="WINDOWS-1251" standalone="no"?>
+<VideoStore>
+    <Genre id="1" name="Action">
+        <Film duration="1.56" id="1" name="James Bond"/>
+        <Film duration="2.34" id="2" name="Mission: Impossible"/>
+    </Genre>
+    <Genre id="2" name="Drama">
+        <Film duration="1.2" id="3" name="First Reformed"/>
+    </Genre>
+    <Genre id="3" name="Horror"/>
+    <Genre id="4" name="Fantasy">
+        <Film duration="1.2" id="4" name="Harry Potter"/>
+    </Genre>
+</VideoStore>
