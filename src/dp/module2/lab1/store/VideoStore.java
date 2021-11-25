@@ -1,7 +1,9 @@
 package dp.module2.lab1.store;
 
 import dp.module2.lab1.parsing.Parser;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class VideoStore {
 
     private Parser parser;
 
-    public VideoStore(String filename, String mapFilename) {
+    public VideoStore(String filename, String mapFilename) throws IOException, SAXException {
         this.parser = new Parser(filename, mapFilename);
         this.genres = new ArrayList<>();
         this.films = new ArrayList<>();
@@ -19,7 +21,7 @@ public class VideoStore {
         loadFromFile();
     }
 
-    public void changeFile(String filename, String mapFilename) {
+    public void changeFile(String filename, String mapFilename) throws IOException, SAXException {
         parser = new Parser(filename, mapFilename);
     }
 

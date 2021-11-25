@@ -27,7 +27,7 @@ public class Parser {
     private Document doc;
     private Element root;
 
-    public Parser(String filename, String mapFilename) {
+    public Parser(String filename, String mapFilename) throws IOException, SAXException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         this.root = null;
 
@@ -136,7 +136,7 @@ public class Parser {
         dbf.setSchema(s);
     }
 
-    private Document createDocument(String filename, DocumentBuilderFactory dbf) {
+    private Document createDocument(String filename, DocumentBuilderFactory dbf) throws IOException, SAXException {
         DocumentBuilder db = null;
         try {
             db = dbf.newDocumentBuilder();
@@ -146,12 +146,7 @@ public class Parser {
 
         db.setErrorHandler(new ParseErrorHandler());
         Document document = null;
-        try {
-            document = db.parse(new File(filename));
-        } catch (Exception e) {
-            document = db.newDocument();
-            e.printStackTrace();
-        }
+        document = db.parse(new File(filename));
 
         return document;
     }

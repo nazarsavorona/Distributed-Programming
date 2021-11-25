@@ -3,7 +3,9 @@ package dp.module2.lab1;
 import dp.module2.lab1.store.Film;
 import dp.module2.lab1.store.Genre;
 import dp.module2.lab1.store.VideoStore;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.logging.Logger;
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SAXException {
         String xml = "src/dp/module2/lab1/videoStore.xml";
         String xml_mod = "src/dp/module2/lab1/videoStoreMod.xml";
         String xsd = "src/dp/module2/lab1/mapVideoStore.xsd";
