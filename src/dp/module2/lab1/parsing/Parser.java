@@ -100,6 +100,7 @@ public class Parser {
 
         try {
             transformer = factory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "WINDOWS-1251");
             transformer.transform(new DOMSource(document), new StreamResult(new File(filename)));
         } catch (TransformerException e) {
