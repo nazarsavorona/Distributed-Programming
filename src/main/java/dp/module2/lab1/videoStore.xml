@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="WINDOWS-1251" standalone="no"?>
 <VideoStore>
     <Genre id="1" name="Action">
-        <Film duration="1.56" id="1" name="James Bond"/>
+        <Film duration="1.56" id="1" name="Hulk"/>
         <Film duration="2.34" id="2" name="Mission: Impossible"/>
     </Genre>
     <Genre id="2" name="Drama">
