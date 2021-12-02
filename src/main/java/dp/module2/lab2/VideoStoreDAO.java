@@ -175,7 +175,7 @@ public class VideoStoreDAO {
 
             statement.setString(1, newFilm.getName());
             statement.setFloat(2, newFilm.getDuration());
-            statement.setInt(3, newFilm.getGenre().getId());
+            statement.setInt(3, getGenreId(newFilm.getGenre().getName()));
             statement.setString(4, oldFilm.getName());
 
             statement.executeUpdate();

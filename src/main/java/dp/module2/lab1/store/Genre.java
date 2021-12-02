@@ -3,6 +3,10 @@ package dp.module2.lab1.store;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Genre {
@@ -10,6 +14,7 @@ public class Genre {
     private String name;
 
     public Genre(String name) {
+        this.id = -1;
         this.name = name;
     }
 
@@ -21,6 +26,28 @@ public class Genre {
     public Genre(Element genreElement) {
         this.id = Integer.parseInt(genreElement.getAttribute("id"));
         this.name = genreElement.getAttribute("name");
+    }
+
+    public Genre(List<String> arguments) {
+        this.id = Integer.parseInt(arguments.get(0));
+        this.name = arguments.get(1);
+    }
+
+    public static int listSize() {
+        return 2;
+    }
+
+    public static Genre parseGenre(DataInputStream in) throws IOException {
+        List<String> list = new ArrayList<>();
+
+        for (int i = 0, n = Genre.listSize(); i < n; i++)
+            list.add(in.readUTF());
+
+        return new Genre(list);
+    }
+
+    public List<String> toList() {
+        return new ArrayList<>(List.of(Integer.toString(id), name));
     }
 
     @Override
@@ -60,5 +87,4 @@ public class Genre {
 
         return element;
     }
-
 }
