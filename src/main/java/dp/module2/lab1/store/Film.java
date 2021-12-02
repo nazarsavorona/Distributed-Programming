@@ -9,6 +9,14 @@ public class Film {
     private Float duration;
     private Genre genre;
 
+    public Float getDuration() {
+        return duration;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public Film(int id, String name, Float duration, Genre genre) {
         this.id = id;
         this.name = name;
@@ -16,7 +24,13 @@ public class Film {
         this.genre = genre;
     }
 
-    public Film (Element filmElement,Element genreElement) {
+    public Film(String name, Float duration, Genre genre) {
+        this.name = name;
+        this.duration = duration;
+        this.genre = genre;
+    }
+
+    public Film (Element filmElement, Element genreElement) {
         this.id = Integer.parseInt(filmElement.getAttribute("id"));
         this.name = filmElement.getAttribute("name");
         this.duration = Float.parseFloat(filmElement.getAttribute("duration"));

@@ -9,6 +9,10 @@ public class Genre {
     private int id;
     private String name;
 
+    public Genre(String name) {
+        this.name = name;
+    }
+
     public Genre(int id, String name) {
         this.id = id;
         this.name = name;
@@ -39,6 +43,10 @@ public class Genre {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
@@ -52,4 +60,5 @@ public class Genre {
 
         return element;
     }
+
 }
