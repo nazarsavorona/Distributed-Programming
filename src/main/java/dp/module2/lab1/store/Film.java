@@ -29,12 +29,33 @@ public class Film {
         this.genre = genre;
     }
 
+    public Film(String name) {
+        this.id = -1;
+        this.name = name;
+        this.duration = -1f;
+        this.genre = null;
+    }
+
+    public Film(String name, Float duration, String genreName) {
+        this.id = -1;
+        this.name = name;
+        this.duration = duration;
+        this.genre = new Genre(genreName);
+    }
+
     //TO DO: replace by creating with genre name
     public Film(String name, Float duration, Genre genre) {
         this.id = -1;
         this.name = name;
         this.duration = duration;
         this.genre = genre;
+    }
+
+    public Film(List<String> arguments) {
+        this.id = Integer.parseInt(arguments.get(0));
+        this.name = arguments.get(1);
+        this.duration = Float.parseFloat(arguments.get(2));
+        this.genre = new Genre(arguments.subList(3, 5));
     }
 
     public Film(Element filmElement, Element genreElement) {
