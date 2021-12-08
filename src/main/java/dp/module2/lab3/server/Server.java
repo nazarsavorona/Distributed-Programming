@@ -62,7 +62,6 @@ public class Server {
                 default -> throw new IllegalStateException("Unexpected value: " + type);
             }
 
-            out.writeInt(0);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,6 +73,7 @@ public class Server {
     private void getGenres() throws IOException {
         List<Genre> genres = videoStore.getGenres();
 
+        out.writeInt(0);
         out.writeInt(genres.size());
 
         for (Genre genre : genres) {
@@ -85,6 +85,7 @@ public class Server {
     private void getFilmsByGenre() throws IOException {
         List<Film> films = videoStore.getFilmsByGenre(Genre.parseGenre(in).getName());
 
+        out.writeInt(0);
         out.writeInt(films.size());
 
         for (Film film : films) {
@@ -96,6 +97,8 @@ public class Server {
     private void getFilmByName() throws IOException {
         List<String> list = new ArrayList<>();
 
+        out.writeInt(0);
+
         for (int i = 0, n = Film.listSize(); i < n; i++)
             list.add(in.readUTF());
 
@@ -103,18 +106,22 @@ public class Server {
     }
 
     private void countFilmsByGenre() throws IOException {
+        out.writeInt(0);
         out.writeInt(videoStore.getNumberOfFilmsByGenre(Genre.parseGenre(in).getName()));
     }
 
     private void updateFilm() throws Exception {
+        out.writeInt(0);
         videoStore.updateFilm(Film.parseFilm(in), Film.parseFilm(in));
     }
 
     private void deleteFilm() throws IOException {
+        out.writeInt(0);
         videoStore.deleteFilm(Film.parseFilm(in).getName());
     }
 
     private void addFilm() throws IOException {
+        out.writeInt(0);
         videoStore.addFilm(Film.parseFilm(in));
     }
 

@@ -43,76 +43,76 @@ public class Client {
     }
 
     public boolean addGenre(Genre genre) throws IOException {
-        sendQuery(QueryType.ADD_GENRE, List.of(genre.getName()));
-        return in.readInt() == 0;
+        return sendQuery(QueryType.ADD_GENRE, List.of(genre.getName()));
     }
 
     public boolean deleteGenre(Genre genre) throws IOException {
-        sendQuery(QueryType.DELETE_GENRE, List.of(genre.getName()));
-        return in.readInt() == 0;
+        return sendQuery(QueryType.DELETE_GENRE, List.of(genre.getName()));
     }
 
     public boolean addFilm(Film film) throws IOException {
-        sendQuery(QueryType.ADD_FILM, film.toList());
-        return in.readInt() == 0;
+        return sendQuery(QueryType.ADD_FILM, film.toList());
     }
 
     public boolean deleteFilm(Film film) throws IOException {
-        sendQuery(QueryType.ADD_FILM, film.toList());
-        return in.readInt() == 0;
+        return sendQuery(QueryType.ADD_FILM, film.toList());
     }
 
     public boolean updateFilm(Film oldFilm, Film newFilm) throws IOException {
         List<String> arguments = oldFilm.toList();
         arguments.addAll(newFilm.toList());
-        sendQuery(QueryType.UPDATE_FILM, arguments);
 
-        return in.readInt() == 0;
+        return sendQuery(QueryType.UPDATE_FILM, arguments);
     }
 
     public int countFilmsByGenre(Genre genre) throws IOException {
-        sendQuery(QueryType.COUNT_FILMS_BY_GENRE, List.of(genre.getName()));
-        int count = in.readInt();
-        int status = in.readInt();
+        if (sendQuery(QueryType.COUNT_FILMS_BY_GENRE, List.of(genre.getName()))) {
+            return in.readInt();
+        }
 
-        return count;
+        throw new RuntimeException("Error while counting genres");
     }
 
     public Film getFilmByName(Film film) throws IOException {
-        sendQuery(QueryType.GET_FILM_BY_NAME, film.toList());
-        Film resultFilm = Film.parseFilm(in);
-        int status = in.readInt();
-        return resultFilm;
+        if (sendQuery(QueryType.GET_FILM_BY_NAME, film.toList())) {
+            Film resultFilm = Film.parseFilm(in);
+            return resultFilm;
+        }
+
+        throw new RuntimeException("Error while getting film");
     }
 
     public List<Film> getFilmsByGenre(Genre genre) throws IOException {
-        sendQuery(QueryType.GET_FILMS_BY_GENRE, genre.toList());
-        int count = in.readInt();
+        if (sendQuery(QueryType.GET_FILMS_BY_GENRE, genre.toList())) {
+            int count = in.readInt();
 
-        List<Film> films = new ArrayList<>();
+            List<Film> films = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
-            films.add(Film.parseFilm(in));
+            for (int i = 0; i < count; i++) {
+                films.add(Film.parseFilm(in));
+            }
+
+            return films;
         }
 
-        int status = in.readInt();
-
-        return films;
+        throw new RuntimeException("Error while getting films by genre");
     }
 
     public List<Genre> getGenres() throws IOException {
-        sendQuery(QueryType.GET_GENRES, List.of());
-        int count = in.readInt();
+        if (sendQuery(QueryType.GET_GENRES, List.of())) {
 
-        List<Genre> genres = new ArrayList<>();
+            int count = in.readInt();
 
-        for (int i = 0; i < count; i++) {
-            genres.add(Genre.parseGenre(in));
+            List<Genre> genres = new ArrayList<>();
+
+            for (int i = 0; i < count; i++) {
+                genres.add(Genre.parseGenre(in));
+            }
+
+            return genres;
         }
 
-        int status = in.readInt();
-
-        return genres;
+        throw new RuntimeException("Error while getting genres");
     }
 
     public void disconnect() throws IOException {
@@ -127,7 +127,7 @@ public class Client {
             out.writeUTF(argument);
         }
 
-        return true;
+        return in.readInt() == 0;
     }
 
     public static void main(String[] args) throws IOException {
@@ -144,7 +144,15 @@ public class Client {
         float duration;
 
 
+
         while (true) {
+            for (Genre genre : client.getGenres()) {
+                System.out.println(genre);
+
+                for(Film film : client.getFilmsByGenre(genre)) {
+                    System.out.println(film);
+                }
+            }
 //            System.out.print("Enter a genre: ");
 //            genreName = sc.nextLine();
 //
@@ -154,23 +162,22 @@ public class Client {
 //
 //            client.addGenre(new Genre(genreName));
 
-            for(Genre genre : client.getGenres()) {
-                System.out.println(genre);
-            }
+//            for (Genre genre : client.getGenres()) {
+//                System.out.println(genre);
+//            }
 
             System.out.print("Enter a film name: ");
             filmName = sc.nextLine();
 //
             if (filmName == "stop")
                 break;
-//
-//            System.out.print("Enter a film duration: ");
-//            duration = Float.parseFloat(sc.nextLine());
-//            System.out.print("Enter a film genre: ");
-//            genreName = sc.nextLine();
-//
-//            client.addFilm(new Film(filmName, duration, genreName));
 
+            System.out.print("Enter a film duration: ");
+            duration = Float.parseFloat(sc.nextLine());
+            System.out.print("Enter a film genre: ");
+            genreName = sc.nextLine();
+
+            client.addFilm(new Film(filmName, duration, genreName));
 
 
         }
