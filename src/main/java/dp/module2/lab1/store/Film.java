@@ -5,10 +5,11 @@ import org.w3c.dom.Element;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Film {
+public class Film implements Serializable {
     private int id;
     private String name;
     private Float duration;
