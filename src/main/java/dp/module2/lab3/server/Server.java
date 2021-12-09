@@ -102,7 +102,10 @@ public class Server {
         for (int i = 0, n = Film.listSize(); i < n; i++)
             list.add(in.readUTF());
 
-        videoStore.getFilmByName(new Film(list).getName());
+        List<String> filmList = videoStore.getFilmByName(new Film(list).getName()).toList();
+
+        for (int i = 0, n = Film.listSize(); i < n; i++)
+            out.writeUTF(filmList.get(i));
     }
 
     private void countFilmsByGenre() throws IOException {

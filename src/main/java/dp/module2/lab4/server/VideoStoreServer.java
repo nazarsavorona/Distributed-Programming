@@ -8,16 +8,14 @@ import dp.module2.lab4.common.VideoStoreRemote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.RMIClientSocketFactory;
-import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 public class VideoStoreServer extends UnicastRemoteObject implements VideoStoreRemote {
     private final VideoStoreDAO videoStore;
 
-    protected VideoStoreServer(String DBName, String ip, int port) throws Exception {
-        this.videoStore = new VideoStoreDAO(DBName, ip, port);
+    protected VideoStoreServer(VideoStoreDAO videoStore) throws Exception {
+        this.videoStore = videoStore;
     }
 
     @Override
@@ -87,7 +85,7 @@ public class VideoStoreServer extends UnicastRemoteObject implements VideoStoreR
         try {
             Registry r = LocateRegistry.createRegistry(1099);
 
-            r.rebind("VideoStoreServer", new VideoStoreServer("VideoStore", "localhost", 5432));
+            r.rebind("VideoStoreServer", new VideoStoreServer(new VideoStoreDAO("VideoStore", "localhost", 5432)));
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -55,7 +55,7 @@ public class Client {
     }
 
     public boolean deleteFilm(Film film) throws IOException {
-        return sendQuery(QueryType.ADD_FILM, film.toList());
+        return sendQuery(QueryType.DELETE_FILM, film.toList());
     }
 
     public boolean updateFilm(Film oldFilm, Film newFilm) throws IOException {
