@@ -20,6 +20,14 @@ public class VideoStoreDAO {
         connection = DriverManager.getConnection(url, user, password);
     }
 
+    public VideoStoreDAO(String DBName, String ip, int port, String user, String password) throws Exception {
+        Class.forName("org.postgresql.Driver");
+
+        final String url = String.format("jdbc:postgresql://%s:%d/%s", ip, port, DBName);
+
+        connection = DriverManager.getConnection(url, user, password);
+    }
+
     public List<Genre> getGenres() {
         PreparedStatement statement = null;
         List<Genre> genres = new ArrayList<>();
@@ -167,7 +175,7 @@ public class VideoStoreDAO {
         }
     }
 
-    public boolean updateFilm(Film oldFilm, Film newFilm) throws Exception {
+    public boolean updateFilm(Film oldFilm, Film newFilm) {
         PreparedStatement statement = null;
 
         try {

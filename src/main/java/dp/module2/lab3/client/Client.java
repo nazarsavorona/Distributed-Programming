@@ -178,8 +178,6 @@ public class Client {
             genreName = sc.nextLine();
 
             client.addFilm(new Film(filmName, duration, genreName));
-
-
         }
 
         try {

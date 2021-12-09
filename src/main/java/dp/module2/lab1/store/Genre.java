@@ -5,11 +5,12 @@ import org.w3c.dom.Element;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Genre {
+public class Genre implements Serializable {
     private int id;
     private String name;
 
