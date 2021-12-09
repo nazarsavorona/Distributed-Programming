@@ -1,8 +1,6 @@
 
 7
 LICENSE,0\3\0398ccd0f49298b10a3d76a47800d2ebecd49859
-K
-Distributed-Programming.iml,5\d\5da12f6a4f2bd7f6d099a152f3bfa0444d3dc6aa
 X
 (src/main/java/dp/module1/lab2/с/main.go,f\d\fd92ee612d12c81d15fb907ca3cf83bdad55bace
 X
@@ -107,5 +105,9 @@ _
 /src/main/java/dp/module1/lab3/a/WinniePooh.java,f\a\fa45308773faa7b99c309f89ceb22cd21041ec65
 [
 +src/main/java/dp/module1/lab4/a/Writer.java,a\2\a21472c8eaebb4d9e40709b91cb79ae139275144
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+c
+3src/main/java/dp/module2/lab1/store/VideoStore.java,7\7\77e52b0d7ea1bee0729ac36671c869b0cde8d024
+W
+'src/main/java/dp/module2/lab2/Main.java,7\5\752350221eba8fede8b33d79da5a831b6d988301
+]
+-src/main/java/dp/module2/lab1/store/Film.java,9\0\90d21d98bc3963228bcd081fb77b89ab98f273c7

@@ -1,0 +1,19 @@
+
+]	java:S125"<This block of commented-out lines of code should be removed.(ÍÀû™ıÿÿÿÿ8ï£ÆĞ×/
+]	java:S125"<This block of commented-out lines of code should be removed.(İ÷¦åşÿÿÿÿ8É¤ÆĞ×/
+X	java:S125"<This block of commented-out lines of code should be removed.(É¼ñ8Ë¤ÆĞ×/
+X	java:S125"<This block of commented-out lines of code should be removed.(€”“¿8Ì¤ÆĞ×/
+X	java:S125"<This block of commented-out lines of code should be removed.(„¸ÕŠ8Ñ¤ÆĞ×/
+]	java:S125""<This block of commented-out lines of code should be removed.(ÄƒĞ€úÿÿÿÿ8Ò¤ÆĞ×/
+Z	java:S106&"9Replace this use of System.out or System.err by a logger.(¾Ù¬²ùÿÿÿÿ8İ¤ÆĞ×/
+Z	java:S106)"9Replace this use of System.out or System.err by a logger.(ıĞÃÿÿÿÿÿ8ç¤ÆĞ×/
+U
+java:S1128"8Remove this unused import 'dp.module2.lab1.store.Genre'.(øÙÛÊ8†¥ÆĞ×/
+M
+java:S1128"0Remove this unused import 'java.sql.Connection'.(¥ËôÖ8ˆ¥ÆĞ×/
+P
+java:S1128"3Remove this unused import 'java.sql.DriverManager'.(“£°8‰¥ÆĞ×/
+O
+java:S1128"2Remove this unused import 'java.sql.SQLException'.(ÛïÆŸ8Š¥ÆĞ×/
+L
+java:S1128	"/Remove this unused import 'java.sql.Statement'.(ÏÖÔø8‹¥ÆĞ×/

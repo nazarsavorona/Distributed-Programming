@@ -1,0 +1,30 @@
+
+o	java:S116"URename this field "item_index" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ûê²úÿÿÿÿ
+l
+java:S1450("VRemove the "lastBet" field and declare it as a local variable in the relevant methods.(‡üµ
+O
+java:S1854<":Remove this useless assignment to local variable "result".(”€×j
+t
+java:S21425"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+A
+java:S14819"+Remove this unused "result" local variable.(ıï‚
+t
+java:S2142="^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+s
+java:S1450N"XRemove the "bannedCdl" field and declare it as a local variable in the relevant methods.(åßº¸ùÿÿÿÿ
+h
+java:S1450M"RRemove the "cdl" field and declare it as a local variable in the relevant methods.(î“Ä–
+N	java:S106T"9Replace this use of System.out or System.err by a logger.(”®”
+C	java:S108b")Either remove or fill this block of code.(šÖñßüÿÿÿÿ
+t
+java:S2142m"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+t
+java:S2142t"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+p	java:S115˜"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(’ñÙ­
+P
+java:S1068F"5Remove this unused "participantsQueue" private field.(Œ”Ç«ûÿÿÿÿ
+H
+java:S1068N"-Remove this unused "bannedCdl" private field.(åßº¸ùÿÿÿÿ
+c	java:S101•"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(›¸°
+=
+java:S2189""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ

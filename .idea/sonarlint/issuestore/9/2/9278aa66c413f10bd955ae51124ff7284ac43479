@@ -1,0 +1,18 @@
+
+\
+java:S2118"AMake the "java.io.Writer" class "Serializable" or don't write it.(²ÊÅ„ûÿÿÿÿ
+\
+java:S2118z"AMake the "java.io.Writer" class "Serializable" or don't write it.(Í¬”³øÿÿÿÿ
+N	java:S106Š"9Replace this use of System.out or System.err by a logger.(ê¨ :
+i
+java:S2095…"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(¥îìãüÿÿÿÿ
+h
+java:S2095["MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(¥îìãüÿÿÿÿ
+f
+java:S2095†"OUse try-with-resources or close this "ObjectInputStream" in a "finally" clause.(¬ŠÓ¢
+_
+java:S20954"DUse try-with-resources or close this "Writer" in a "finally" clause.(•˜Òÿÿÿÿÿ
+C
+java:S2689K"-Do not use a FileOutputStream in append mode.(ñŠĞ
+C
+java:S2689"-Do not use a FileOutputStream in append mode.(ñŠĞ
