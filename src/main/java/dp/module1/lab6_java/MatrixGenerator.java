@@ -1,4 +1,4 @@
-package com.company.Module1.Lab6Java;
+package dp.module1.lab6_java;
 
 public class MatrixGenerator {
     public static double[][] generateMatrix(int rows, int cols) {

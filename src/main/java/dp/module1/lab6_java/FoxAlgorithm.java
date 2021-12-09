@@ -1,4 +1,4 @@
-package com.company.Module1.Lab6Java;
+package dp.module1.lab6_java;
 
 import mpi.Cartcomm;
 import mpi.MPI;
@@ -13,6 +13,7 @@ class Data {
     public double[] pMatrixAblock;
     public int[] size = new int[1];
     public int blockSize;
+    public final int dataSize = 1500;
 }
 
 public class FoxAlgorithm {
@@ -60,7 +61,7 @@ public class FoxAlgorithm {
 
     private static void processInitialization(Data data) {
         if (procRank == 0) {
-            data.size[0] = 3000;
+            data.size[0] = data.dataSize;
             if (data.size[0] % gridSize != 0)
                 System.out.println("Size must be proportional to grid size!");
         }
