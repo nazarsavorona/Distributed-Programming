@@ -6,7 +6,11 @@
 
     <groupId>groupId</groupId>
     <artifactId>Distributed-Programming</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>src/main/java/dp/module2/lab6</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

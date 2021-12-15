@@ -5,6 +5,7 @@ import dp.module2.lab1.store.Genre;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class VideoStoreDAO {
@@ -49,6 +50,44 @@ public class VideoStoreDAO {
         }
     }
 
+    public Genre getGenre(int id) {
+        PreparedStatement statement;
+
+        try {
+            statement = connection.prepareStatement("SELECT name FROM Genres WHERE Genres.id = ?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            result.next();
+            String name = result.getString("name");
+            result.close();
+            return new Genre(id, name);
+        } catch (SQLException e) {
+            System.out.printf("Error during getting genre with id %d%n", id);
+            System.out.println(" >> " + e.getMessage());
+            return null;
+        }
+    }
+
+    public List<Genre> getGenre(String name) {
+        PreparedStatement statement;
+        List<Genre> genres = new ArrayList<>();
+
+        try {
+            statement = connection.prepareStatement("SELECT id, name FROM Genres WHERE Genres.name LIKE ?");
+            statement.setString(1, "%" + name + "%");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                genres.add(new Genre(result.getInt("id"), result.getString("name")));
+            }
+            result.close();
+            return genres;
+        } catch (SQLException e) {
+            System.out.printf("Error during getting genre with name %s%n", name);
+            System.out.println(" >> " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
     public void showGenres() {
         System.out.println("Genres:");
 
@@ -57,7 +96,7 @@ public class VideoStoreDAO {
         }
     }
 
-    public boolean addGenre(Genre genre) {
+    public int addGenre(Genre genre) {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement("INSERT INTO  Genres (name) VALUES (?)");
@@ -65,11 +104,11 @@ public class VideoStoreDAO {
 
             statement.executeUpdate();
             System.out.printf("Genre %s successfully added!%n", genre.toString());
-            return true;
+            return getGenreId(genre.getName());
         } catch (SQLException e) {
             System.out.printf("Genre %s was not added!%n", genre.toString());
             System.out.println(" >> " + e.getMessage());
-            return false;
+            return -1;
         }
     }
 
@@ -77,7 +116,7 @@ public class VideoStoreDAO {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement("Update Genres Set name=? Where name=?");
+            statement = connection.prepareStatement("UPDATE Genres SET name=? WHERE name=?");
 
             statement.setString(1, newGenre.getName());
             statement.setString(2, oldGenre);
@@ -157,6 +196,32 @@ public class VideoStoreDAO {
         }
     }
 
+    public Film getFilm(int id) {
+        PreparedStatement statement;
+
+        try {
+            statement = connection.prepareStatement("SELECT Genres.id AS genreId, Genres.name AS genreName,  Films.id" +
+                    " AS filmId,  Films.name AS filmName, Films.duration AS filmDuration FROM Genres INNER JOIN Films" +
+                    " on Genres.id = Films.genreid WHERE Films.id = ?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            result.next();
+            Film film = new Film(result.getInt("filmId"),
+                    result.getString("filmName"),
+                    result.getFloat("filmDuration"),
+                    new Genre(result.getInt("genreId"),
+                            result.getString("genreName")
+                    )
+            );
+            result.close();
+            return film;
+        } catch (SQLException e) {
+            System.out.printf("Error during getting genre with id %d%n", id);
+            System.out.println(" >> " + e.getMessage());
+            return null;
+        }
+    }
+
     public boolean addFilm(Film film) {
         PreparedStatement statement = null;
         try {
@@ -179,7 +244,7 @@ public class VideoStoreDAO {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement("Update Films Set name=?, duration=?, genreId=? Where name=?");
+            statement = connection.prepareStatement("UPDATE Films SET name=?, duration=?, genreId=? WHERE name=?");
 
             statement.setString(1, newFilm.getName());
             statement.setFloat(2, newFilm.getDuration());
@@ -243,28 +308,35 @@ public class VideoStoreDAO {
         }
     }
 
-    public Film getFilmByName(String filmName) {
+    public List<Film> getFilmByName(String filmName) throws SQLException {
         PreparedStatement statement = null;
-
+        List<Film> films = new ArrayList<>();
         try {
-            statement = connection.prepareStatement("SELECT Films.id AS filmId, Films.genreId AS genreId, Films.name " +
-                    "AS filmName, Films.duration AS duration FROM Films WHERE Films.name=?");
-            statement.setString(1, filmName);
+            statement = connection.prepareStatement("SELECT Genres.id AS genreId, Genres.name AS genreName,  Films.id" +
+                    " AS filmId,  Films.name AS filmName, Films.duration AS filmDuration\n" +
+                    "FROM Genres INNER JOIN Films on Genres.id = Films.genreid WHERE Films.name=?");
+            statement.setString(1, "%" + filmName + "%");
 
-            ResultSet queryResult = statement.executeQuery();
-            queryResult.next();
-            Film film = new Film(queryResult.getInt("filmId"), queryResult.getString("filmName"),
-                    queryResult.getFloat("duration"), getGenre(queryResult.getInt("genreId")));
+            ResultSet result = statement.executeQuery();
 
-            queryResult.close();
+            while (result.next()) {
+                films.add(new Film(result.getInt("filmId"),
+                                result.getString("filmName"),
+                                result.getFloat("filmDuration"),
+                                new Genre(result.getInt("genreId"),
+                                        result.getString("genreName")
+                                )
+                        )
+                );
+            }
+            result.close();
 
-            return film;
-
+            return films;
 
         } catch (SQLException e) {
             System.out.printf("Error during getting film by name %s%n", filmName);
             System.out.println(" >> " + e.getMessage());
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -316,24 +388,6 @@ public class VideoStoreDAO {
             System.out.printf("Error during getting genre id for %s%n", name);
             System.out.println(" >> " + e.getMessage());
             return -1;
-        }
-    }
-
-    private Genre getGenre(int id) {
-        PreparedStatement statement;
-
-        try {
-            statement = connection.prepareStatement("SELECT name FROM Genres WHERE Genres.id = ?");
-            statement.setInt(1, id);
-            ResultSet result = statement.executeQuery();
-            result.next();
-            String name = result.getString("name");
-            result.close();
-            return new Genre(id, name);
-        } catch (SQLException e) {
-            System.out.printf("Error during getting genre with id %d%n", id);
-            System.out.println(" >> " + e.getMessage());
-            return null;
         }
     }
 

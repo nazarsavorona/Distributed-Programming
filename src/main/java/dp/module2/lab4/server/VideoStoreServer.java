@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.List;
 
 public class VideoStoreServer extends UnicastRemoteObject implements VideoStoreRemote {
@@ -61,9 +62,9 @@ public class VideoStoreServer extends UnicastRemoteObject implements VideoStoreR
     }
 
     @Override
-    public Film getFilmByName(String name) throws RemoteException {
+    public Film getFilmByName(String name) throws RemoteException, SQLException {
         synchronized (videoStore){
-            return videoStore.getFilmByName(name);
+            return videoStore.getFilmByName(name).get(0);
         }
     }
 

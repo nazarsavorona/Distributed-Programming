@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class Server {
         }
     }
 
-    private void getFilmByName() throws IOException {
+    private void getFilmByName() throws IOException, SQLException {
         List<String> list = new ArrayList<>();
 
         out.writeInt(0);
@@ -102,7 +103,7 @@ public class Server {
         for (int i = 0, n = Film.listSize(); i < n; i++)
             list.add(in.readUTF());
 
-        List<String> filmList = videoStore.getFilmByName(new Film(list).getName()).toList();
+        List<String> filmList = videoStore.getFilmByName(new Film(list).getName()).get(0).toList();
 
         for (int i = 0, n = Film.listSize(); i < n; i++)
             out.writeUTF(filmList.get(i));

@@ -127,8 +127,9 @@ public class Server {
         }
     }
 
-    private void getFilmByName(String response) throws IOException {
-        List<String> filmList = videoStore.getFilmByName(new Film(popArguments(Film.listSize())).getName()).toList();
+    private void getFilmByName(String response) throws IOException, SQLException {
+        List<String> filmList =
+                videoStore.getFilmByName(new Film(popArguments(Film.listSize())).getName()).get(0).toList();
 
         for (int i = 0, n = Film.listSize(); i < n; i++) {
             addToResponse(filmList.get(i));

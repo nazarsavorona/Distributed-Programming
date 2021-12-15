@@ -5,6 +5,7 @@ import dp.module2.lab1.store.Film;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface VideoStoreRemote extends Remote {
@@ -20,7 +21,7 @@ public interface VideoStoreRemote extends Remote {
 
     int countFilmsByGenre(String name) throws RemoteException;
 
-    Film getFilmByName(String name) throws RemoteException;
+    Film getFilmByName(String name) throws RemoteException, SQLException;
 
     List<Film> getFilmsByGenre(String name) throws RemoteException;
 
