@@ -1,7 +1,6 @@
-package com.company.Module1.Lab7;
+package dp.module1.lab7;
 
-import com.company.Module1.Lab6Java.MatrixGenerator;
-import com.company.Module1.Lab6Java.SequentialMatrixMultiplication;
+import dp.module1.lab6_java.MatrixGenerator;
 
 import java.util.concurrent.ForkJoinPool;
 public class Main {

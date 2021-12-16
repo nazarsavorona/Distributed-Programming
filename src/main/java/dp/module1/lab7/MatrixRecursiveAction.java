@@ -1,4 +1,4 @@
-package com.company.Module1.Lab7;
+package dp.module1.lab7;
 
 import java.util.ArrayList;
 import java.util.List;
