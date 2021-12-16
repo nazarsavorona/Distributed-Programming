@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Distributed-Programming.iml" filepath="$PROJECT_DIR$/Distributed-Programming.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/dp/module2/lab6/lab6.iml" filepath="$PROJECT_DIR$/src/main/java/dp/module2/lab6/lab6.iml" />
     </modules>
   </component>
 </project>
